@@ -23,18 +23,10 @@ static void ma_debug_node_process_pcm_frames(ma_node *pNode,
   ma_uint32 framesOut = *pFrameCountOut;
   assert(framesIn == framesOut);
   ma_uint32 channelCount = ma_node_get_input_channels(pNode, 0);
-  void (*callback)(float signal, ma_uint32 channel) = pDebugNode->callback;
-  if (callback) {
-    ma_uint32 frame;
-    for (frame = 0; frame < framesIn; ++frame) {
-      ma_uint32 channel = 0;
-      for (channel = 0; channel < channelCount; ++channel) {
-        float sample = ppFramesIn[0][frame * channelCount + channel];
-        callback(sample, channel);
-      }
-    }
+  if (pDebugNode->callback) {
+    pDebugNode->callback(framesIn, ppFramesIn[0], channelCount);
   }
-
+  
   ma_copy_pcm_frames(ppFramesOut[0], ppFramesIn[0], framesOut, ma_format_f32,
                      channelCount);
 }
@@ -42,7 +34,8 @@ static void ma_debug_node_process_pcm_frames(ma_node *pNode,
 static ma_node_vtable g_ma_debug_node_vtable = {
     ma_debug_node_process_pcm_frames, NULL, 1, /* 1 input channel. */
     1,                                         /* 1 output channel. */
-                                               //    MA_NODE_FLAG_PASSTHROUGH |
+                                               // Can not passthrough, because that prevents the callback in moments of silence.
+//                                                   MA_NODE_FLAG_PASSTHROUGH | 
     MA_NODE_FLAG_CONTINUOUS_PROCESSING};
 
 MA_API ma_result ma_debug_node_init(
