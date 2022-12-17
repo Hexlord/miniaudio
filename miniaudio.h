@@ -49639,7 +49639,7 @@ MA_API ma_result ma_spatializer_process_pcm_frames(ma_spatializer* pSpatializer,
 
                 Summary: 0 = more extreme panning; 1 = no panning.
                 */
-                dMin = 0.2f;  /* TODO: Consider making this configurable. */
+                dMin = 0.5f;  /* TODO: Consider making this configurable. */
 
                 /*
                 At this point, "d" will be positive if the sound is on the same side as the channel and negative if

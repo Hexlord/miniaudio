@@ -12,14 +12,16 @@ The trim node has one input and one output.
 typedef struct {
   ma_node_config nodeConfig;
   ma_uint32 channels;
-  void (*callback)(ma_uint32 frameCount, const float *frames, ma_uint32 channels);
+  void *userData;
+  void (*callback)(const float *InFrames, ma_uint64 LocalStartFrame, ma_uint32 FrameCount, void *UserData);
 } ma_debug_node_config;
 
 MA_API ma_debug_node_config ma_debug_node_config_init(ma_uint32 channels);
 
 typedef struct {
   ma_node_base baseNode;
-  void (*callback)(ma_uint32 frameCount, const float *frames, ma_uint32 channels);
+  void *userData;
+  void (*callback)(const float *InFrames, ma_uint64 LocalStartFrame, ma_uint32 FrameCount, void *UserData);
 } ma_debug_node;
 
 MA_API ma_result ma_debug_node_init(

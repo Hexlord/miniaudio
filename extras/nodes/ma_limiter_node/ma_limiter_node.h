@@ -12,15 +12,17 @@ The trim node has one input and one output.
 typedef struct {
   ma_node_config nodeConfig;
   ma_uint32 channels;
-  // Gain = 1 - pow(min(1, signal / threshold), 4)
-  double threshold;
+  double attackMS;
+  double releaseMS;
+  double thresholdDB;
+  double ratioDB;
 } ma_limiter_node_config;
 
 MA_API ma_limiter_node_config ma_limiter_node_config_init(ma_uint32 channels);
 
 typedef struct {
   ma_node_base baseNode;
-  double thresholdInv;
+  void *user;
 } ma_limiter_node;
 
 MA_API ma_result ma_limiter_node_init(
