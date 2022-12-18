@@ -12,7 +12,7 @@ The trim node has one input and one output.
 typedef struct {
   ma_node_config nodeConfig;
   void *userData;
-  void (*callback)(const float **InBuses, float **OutBuses, ma_uint64 LocalStartFrame, ma_uint32 FrameCount, void *UserData);
+  void (*callback)(const float **InBuses, float **OutBuses, ma_uint64 EndpointFrame, ma_uint32 FrameCount, void *UserData);
 } ma_continuous_processor_node_config;
 
 MA_API ma_continuous_processor_node_config ma_continuous_processor_node_config_init();
@@ -20,7 +20,7 @@ MA_API ma_continuous_processor_node_config ma_continuous_processor_node_config_i
 typedef struct {
   ma_node_base baseNode;
   void *userData;
-  void (*callback)(const float **InBuses, float **OutBuses, ma_uint64 LocalStartFrame, ma_uint32 FrameCount, void *UserData);
+  void (*callback)(const float **InBuses, float **OutBuses, ma_uint64 EndpointFrame, ma_uint32 FrameCount, void *UserData);
 } ma_continuous_processor_node;
 
 MA_API ma_result ma_continuous_processor_node_init(

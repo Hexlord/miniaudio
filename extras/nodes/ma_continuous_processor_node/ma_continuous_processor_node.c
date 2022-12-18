@@ -21,7 +21,7 @@ static void ma_continuous_processor_node_process_pcm_frames(ma_node *pNode,
   ma_uint32 framesOut = *pFrameCountOut;
   assert(framesIn == framesOut);
   
-  pContinuousProcessorNode->callback(ppFramesIn, ppFramesOut, ma_node_get_time(pNode), framesIn, pContinuousProcessorNode->userData);
+  pContinuousProcessorNode->callback(ppFramesIn, ppFramesOut, ma_node_graph_get_time(ma_node_get_node_graph(pNode)), framesIn, pContinuousProcessorNode->userData);
 }
 
 static ma_node_vtable g_ma_continuous_processor_node_vtable = {
