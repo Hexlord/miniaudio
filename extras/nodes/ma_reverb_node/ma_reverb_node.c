@@ -13,6 +13,7 @@ MA_API ma_reverb_node_config ma_reverb_node_config_init(ma_uint32 channels, ma_u
     config.roomSize   = verblib_initialroom;
     config.damping    = verblib_initialdamp;
     config.width      = verblib_initialwidth;
+    config.inputWidth      = verblib_initialinputwidth;
     config.wetVolume  = verblib_initialwet;
     config.dryVolume  = verblib_initialdry;
     config.mode       = verblib_initialmode;
@@ -57,6 +58,14 @@ MA_API ma_result ma_reverb_node_init(ma_node_graph* pNodeGraph, const ma_reverb_
     if (verblib_initialize(&pReverbNode->reverb, (unsigned long)pConfig->sampleRate, (unsigned int)pConfig->channels) == 0) {
         return MA_INVALID_ARGS;
     }
+    
+    verblib_set_wet(&pReverbNode->reverb, pConfig->wetVolume);
+    verblib_set_room_size(&pReverbNode->reverb, pConfig->roomSize);
+    verblib_set_dry(&pReverbNode->reverb, pConfig->dryVolume);
+    verblib_set_damping(&pReverbNode->reverb, pConfig->damping);
+    verblib_set_width(&pReverbNode->reverb, pConfig->width);
+    verblib_set_input_width(&pReverbNode->reverb, pConfig->inputWidth);
+    verblib_set_mode(&pReverbNode->reverb, pConfig->mode);
 
     baseConfig = pConfig->nodeConfig;
     baseConfig.vtable          = &g_ma_reverb_node_vtable;

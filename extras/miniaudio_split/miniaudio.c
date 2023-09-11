@@ -38644,7 +38644,7 @@ MA_API ma_spatializer_config ma_spatializer_config_init(ma_uint32 channelsIn, ma
     config.coneOuterGain                = 0.0f;
     config.dopplerFactor                = 1;
     config.directionalAttenuationFactor = 1;
-    config.minSpatializationChannelGain = 0.2f;
+    config.minSpatializationChannelGain = 0.8f;
     config.gainSmoothTimeInFrames       = 360;       /* 7.5ms @ 48K. */
 
     return config;

@@ -19,6 +19,7 @@ typedef struct
     float roomSize;
     float damping;
     float width;
+    float inputWidth;
     float wetVolume;
     float dryVolume;
     float mode;
